@@ -22,6 +22,7 @@ export type MapMeta = {
   image: string
   thumb?: string
   screen?: string
+  board?: string
   size?: [number, number]
 }
 

@@ -74,6 +74,23 @@
   height: auto;
 }
 
+.map-board > img:not(.map-board-ph) {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.map-board > img.is-on {
+  opacity: 1;
+}
+
+.map-board-ph {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  filter: blur(12px);
+  transform: scale(1.06);
+}
+
 .map-board.is-edit {
   cursor: crosshair;
 }
@@ -228,4 +245,13 @@
 
 .map-respawn.team-2 .map-respawn-num {
   border-color: #d64545;
+}
+
+.map-respawn.is-dim {
+  opacity: 0.32;
+}
+
+.map-respawn.is-on {
+  z-index: 3;
+  filter: drop-shadow(0 0 6px rgba(255, 209, 102, 0.55));
 }

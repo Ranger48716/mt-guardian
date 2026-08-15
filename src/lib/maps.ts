@@ -67,6 +67,10 @@ export function mapCover(m: { image: string; thumb?: string; screen?: string }):
   return m.screen || m.thumb || m.image
 }
 
+export function mapBoard(m: { image: string; board?: string }): string {
+  return m.board || m.image
+}
+
 export function hasPublished(catalog: Catalog, mapId: string, modeId: string): boolean {
   return Boolean(modeGuide(catalog, mapId, modeId).publishedVersionId)
 }

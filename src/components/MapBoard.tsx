@@ -19,6 +19,8 @@ type Props = {
   respawns?: RespawnMarker[]
   selectedId?: string | null
   interactive?: boolean
+  placeholder?: string
+  activeResp?: 1 | 2
   onPlace?: (x: number, y: number) => void
   onSelect?: (id: string) => void
   onMove?: (id: string, x: number, y: number) => void
@@ -35,6 +37,8 @@ export function MapBoard({
   respawns = [],
   selectedId,
   interactive,
+  placeholder,
+  activeResp,
   onPlace,
   onSelect,
   onMove,
@@ -42,7 +46,14 @@ export function MapBoard({
   const boardRef = useRef<HTMLDivElement>(null)
   const byId = Object.fromEntries(groups.map((g) => [g.id, g]))
   const dragRef = useRef<{ id: string; moved: boolean } | null>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
   const [dragId, setDragId] = useState<string | null>(null)
+  const [boardOn, setBoardOn] = useState(false)
+
+  useEffect(() => {
+    const img = imgRef.current
+    setBoardOn(Boolean(img?.complete && img.naturalWidth > 0))
+  }, [image])
 
   useEffect(() => {
     const el = boardRef.current
@@ -133,7 +144,27 @@ export function MapBoard({
         className={`map-board ${interactive ? 'is-edit' : ''} ${dragId ? 'is-dragging' : ''}`}
         onClick={clickBoard}
       >
-        <img src={`${import.meta.env.BASE_URL}${image}`} alt="" draggable={false} />
+        <img
+          ref={imgRef}
+          className={boardOn ? 'is-on' : ''}
+          src={`${import.meta.env.BASE_URL}${image}`}
+          alt=""
+          width={512}
+          height={512}
+          decoding="async"
+          fetchPriority="high"
+          draggable={false}
+          onLoad={() => setBoardOn(true)}
+        />
+        {placeholder && !boardOn && (
+          <img
+            className="map-board-ph"
+            src={`${import.meta.env.BASE_URL}${placeholder}`}
+            alt=""
+            draggable={false}
+            fetchPriority="low"
+          />
+        )}
         <svg className="map-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
           {vLines.map((x) => (
             <line key={`v${x}`} x1={x} y1={0} x2={x} y2={100} />
@@ -147,7 +178,7 @@ export function MapBoard({
         {respawns.map((r, i) => (
           <div
             key={`r${r.team}-${r.kind}-${i}`}
-            className={`map-respawn team-${r.team} kind-${r.kind}`}
+            className={`map-respawn team-${r.team} kind-${r.kind}${activeResp && r.team !== activeResp ? ' is-dim' : ''}${activeResp === r.team ? ' is-on' : ''}`}
             style={{ left: `${r.x}%`, top: `${r.y}%` }}
             title={`Респ ${r.team}${r.kind === 'base' ? ' · база' : ''}`}
           >

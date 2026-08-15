@@ -59,8 +59,15 @@ function slimPages(): Plugin {
       const mapsDir = path.join(dist, 'maps')
       if (!fs.existsSync(mapsDir)) return
       for (const name of fs.readdirSync(mapsDir)) {
-        if (!name.endsWith('.png')) continue
-        if (!keep.has(name.slice(0, -4))) fs.unlinkSync(path.join(mapsDir, name))
+        const id = name.replace(/\.(png|jpg)$/, '')
+        const file = path.join(mapsDir, name)
+        if (!keep.has(id)) {
+          fs.unlinkSync(file)
+          continue
+        }
+        if (name.endsWith('.png') && fs.existsSync(path.join(mapsDir, `${id}.jpg`))) {
+          fs.unlinkSync(file)
+        }
       }
     },
   }

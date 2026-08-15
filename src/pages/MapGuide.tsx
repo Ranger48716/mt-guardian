@@ -6,8 +6,9 @@ import { respawnsFor } from '../lib/arenaSpawns'
 import { loadCatalog } from '../lib/catalog'
 import { squareAt } from '../lib/grid'
 import { vehicleIcon } from '../lib/icons'
-import { getMapMeta, modeGuide, publishedModes } from '../lib/maps'
+import { getMapMeta, mapBoard, modeGuide, publishedModes } from '../lib/maps'
 import { publishedVersion } from '../lib/publish'
+import { markOpened } from '../lib/seen'
 import { groupColor, type Catalog, type Point, type PointGroup, type Resp } from '../types'
 
 function hexAlpha(hex: string, a: number) {
@@ -44,6 +45,10 @@ export function MapGuide() {
   useEffect(() => {
     loadCatalog().then(setCatalog)
   }, [])
+
+  useEffect(() => {
+    if (mapId) markOpened(mapId)
+  }, [mapId])
 
   useEffect(() => {
     const back = window.Telegram?.WebApp?.BackButton
@@ -97,6 +102,23 @@ export function MapGuide() {
   }
 
   const assault = isAssaultMode(modeId)
+  const chips = version && (
+    <nav className="g-chips">
+      {groups.map((g) => (
+        <button
+          key={g.id}
+          type="button"
+          className={currentGroup?.id === g.id ? 'is-on' : ''}
+          title={g.name}
+          style={{ ['--g' as string]: groupColor(g) }}
+          onClick={() => setActiveGroup(g.id)}
+        >
+          <img src={vehicleIcon(g.vehicleType)} alt="" />
+          {shortGroup(g.name)}
+        </button>
+      ))}
+    </nav>
+  )
 
   return (
     <div className="g-page">
@@ -137,28 +159,15 @@ export function MapGuide() {
             </div>
           )}
 
-          <nav className="g-chips">
-            {groups.map((g) => (
-              <button
-                key={g.id}
-                type="button"
-                className={currentGroup?.id === g.id ? 'is-on' : ''}
-                title={g.name}
-                style={{ ['--g' as string]: groupColor(g) }}
-                onClick={() => setActiveGroup(g.id)}
-              >
-                <img src={vehicleIcon(g.vehicleType)} alt="" />
-                {shortGroup(g.name)}
-              </button>
-            ))}
-          </nav>
+          {chips}
 
           {currentGroup && (
             <GuideStage
-              image={meta.image}
+              image={mapBoard(meta)}
               points={points}
               groups={version.groups}
               respawns={respawns}
+              resp={resp}
               selectedId={selectedId}
               accent={groupColor(currentGroup)}
               onSelect={setSelectedId}
@@ -175,6 +184,7 @@ function GuideStage({
   points,
   groups,
   respawns,
+  resp,
   selectedId,
   accent,
   onSelect,
@@ -183,6 +193,7 @@ function GuideStage({
   points: Point[]
   groups: PointGroup[]
   respawns: ReturnType<typeof respawnsFor>
+  resp: Resp
   selectedId: string | null
   accent: string
   onSelect: (id: string) => void
@@ -191,7 +202,6 @@ function GuideStage({
   const svgRef = useRef<SVGSVGElement>(null)
   const wide = useWide()
   const selected = points.find((p) => p.id === selectedId) || null
-  const sheetTop = (selected?.y ?? 0) >= 50
 
   useEffect(() => {
     const root = rootRef.current
@@ -221,7 +231,7 @@ function GuideStage({
           const y2 = b.top + b.height / 2 - box.top
           const on = id === selectedId
           parts.push(
-            `<path d="M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="${on ? accent : hexAlpha(accent, 0.16)}" stroke-width="${on ? 1.5 : 0.9}" stroke-linecap="round" />`,
+            `<path d="M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="${on ? accent : hexAlpha(accent, 0.4)}" stroke-width="${on ? 1.5 : 0.9}" stroke-linecap="round" />`,
           )
         })
       } else if (selectedId) {
@@ -273,79 +283,79 @@ function GuideStage({
       ref={rootRef}
       style={{ ['--g' as string]: accent }}
     >
-      {wide && <svg className="connectors" ref={svgRef} aria-hidden />}
+      <svg className="connectors" ref={svgRef} aria-hidden />
       <div className="guide-map">
-        {!wide && <svg className="connectors" ref={svgRef} aria-hidden />}
         <MapBoard
+          key={image}
           image={image}
           points={points}
           groups={groups}
           respawns={respawns}
+          activeResp={resp}
           selectedId={selectedId}
           onSelect={openNote}
         />
-        {!wide && selected && (
-          <article className={`pin-sheet ${sheetTop ? 'is-top' : 'is-bottom'}`}>
-            <span className="sheet-port" aria-hidden />
-            {points.length > 1 && (
-              <>
-                <div className="pin-sheet-dots">
-                  {points.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      className={p.id === selected.id ? 'is-on' : ''}
-                      aria-label={`Точка ${squareAt(p.x, p.y)}`}
-                      onClick={() => onSelect(p.id)}
-                    />
-                  ))}
-                </div>
-                <div className="pin-sheet-bar">
-                  <button
-                    type="button"
-                    className="pin-sheet-nav"
-                    aria-label="Предыдущая"
-                    onClick={() => stepSheet(-1)}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden>
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M10 3.2 4.8 8 10 12.8"
-                      />
-                    </svg>
-                  </button>
-                  <div className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</div>
-                  <button
-                    type="button"
-                    className="pin-sheet-nav"
-                    aria-label="Следующая"
-                    onClick={() => stepSheet(1)}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden>
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m6 3.2 5.2 4.8L6 12.8"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </>
-            )}
-            {points.length < 2 && (
-              <h3 className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</h3>
-            )}
-            <p>{selected.description}</p>
-          </article>
-        )}
       </div>
+      {!wide && !selected && <p className="muted g-pad">Нет точек для этого респа</p>}
+      {!wide && selected && (
+        <article className="pin-sheet is-dock">
+          <span className="sheet-port" aria-hidden />
+          {points.length > 1 && (
+            <>
+              <div className="pin-sheet-dots">
+                {points.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    className={p.id === selected.id ? 'is-on' : ''}
+                    aria-label={`Точка ${squareAt(p.x, p.y)}`}
+                    onClick={() => onSelect(p.id)}
+                  />
+                ))}
+              </div>
+              <div className="pin-sheet-bar">
+                <button
+                  type="button"
+                  className="pin-sheet-nav"
+                  aria-label="Предыдущая"
+                  onClick={() => stepSheet(-1)}
+                >
+                  <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden>
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10 3.2 4.8 8 10 12.8"
+                    />
+                  </svg>
+                </button>
+                <div className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</div>
+                <button
+                  type="button"
+                  className="pin-sheet-nav"
+                  aria-label="Следующая"
+                  onClick={() => stepSheet(1)}
+                >
+                  <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden>
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m6 3.2 5.2 4.8L6 12.8"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </>
+          )}
+          {points.length < 2 && <h3 className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</h3>}
+          <p>{selected.description}</p>
+        </article>
+      )}
       {wide && (
         <ol className="notes">
           {points.length === 0 && <li className="muted">Нет точек для этого респа</li>}

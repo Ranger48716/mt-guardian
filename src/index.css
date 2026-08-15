@@ -685,6 +685,20 @@ h3.pin-sheet-sq {
   color: #fff;
 }
 
+.pin-sheet.is-dock {
+  position: relative;
+  left: auto;
+  right: auto;
+  z-index: 5;
+  max-height: none;
+  margin: 0 8px 16px;
+  animation: pin-sheet-up 0.22s ease;
+}
+
+.pin-sheet.is-dock .sheet-port {
+  top: -3px;
+}
+
 .pin-sheet.is-bottom {
   bottom: 10px;
   animation: pin-sheet-up 0.22s ease;
@@ -1263,8 +1277,23 @@ h3.pin-sheet-sq {
 .cover-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
+}
+
+.cover-new {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .cover-name {
@@ -1325,7 +1354,8 @@ h3.pin-sheet-sq {
 .g-page {
   max-width: 1080px;
   margin: 0 auto;
-  padding-bottom: 40px;
+  min-height: 100dvh;
+  padding-bottom: 12px;
 }
 
 .g-top {
@@ -1357,12 +1387,13 @@ h3.pin-sheet-sq {
 
 .g-top .seg {
   background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
   border-radius: 10px;
 }
 
 .g-top .seg button.is-on {
-  background: var(--panel);
-  color: var(--text);
+  background: var(--accent);
+  color: #fff;
 }
 
 .g-title {
@@ -1462,10 +1493,6 @@ h3.pin-sheet-sq {
   border-color: color-mix(in srgb, var(--g, var(--accent)) 38%, transparent);
 }
 
-.g-chips button.is-on img {
-  opacity: 1;
-}
-
 .g-page .guide-map {
   max-width: 420px;
   margin: 0 auto;
@@ -1474,7 +1501,9 @@ h3.pin-sheet-sq {
 }
 
 .g-page .guide-annot.is-sheet .guide-map {
-  padding: 0 8px 8px;
+  position: relative;
+  top: auto;
+  padding: 0 8px 4px;
 }
 
 .g-page .map-axis-right,

@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PUBLIC_MODES, resolveClientMode, type PublicModeId } from '../lib/arena'
 import { loadCatalog } from '../lib/catalog'
-import { hasPublished, PUBLIC_MAPS, mapCover } from '../lib/maps'
+import { hasPublished, PUBLIC_MAPS, mapBoard, mapCover } from '../lib/maps'
+import { markOpened, openedIds } from '../lib/seen'
 import type { Catalog } from '../types'
 
 export function AppHome() {
@@ -10,6 +11,7 @@ export function AppHome() {
   const [onlyGuides, setOnlyGuides] = useState(true)
   const [mode, setMode] = useState<PublicModeId>('ctf')
   const [catalog, setCatalog] = useState<Catalog>({ guides: {} })
+  const [opened, setOpened] = useState(() => openedIds())
   const nav = useNavigate()
 
   useEffect(() => {
@@ -99,17 +101,28 @@ export function AppHome() {
                   type="button"
                   className={`cover-card ${guided ? '' : 'is-off'}`}
                   disabled={!guided}
-                  onClick={() => guided && nav(`/maps/${m.id}/${clientMode}`)}
+                  onPointerDown={() => {
+                    if (!guided) return
+                    const pre = new Image()
+                    pre.src = `${import.meta.env.BASE_URL}${mapBoard(m)}`
+                  }}
+                  onClick={() => {
+                    if (!guided) return
+                    setOpened(markOpened(m.id))
+                    nav(`/maps/${m.id}/${clientMode}`)
+                  }}
                 >
                   <img
                     src={`${import.meta.env.BASE_URL}${mapCover(m)}`}
                     alt=""
-                    width={480}
-                    height={300}
+                    width={240}
+                    height={360}
                     decoding="async"
-                    loading={i < 4 ? 'eager' : 'lazy'}
+                    sizes="(max-width: 720px) 50vw, 240px"
+                    loading={i < 2 ? 'eager' : 'lazy'}
                     fetchPriority={i < 2 ? 'high' : 'low'}
                   />
+                  {guided && !opened.has(m.id) && <span className="cover-new">Новый</span>}
                   <span className="cover-name">{m.name}</span>
                 </button>
               </li>

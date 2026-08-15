@@ -74,7 +74,8 @@
       512
     ],
     "thumb": "maps/thumbs/60_asia_miao.png",
-    "screen": "covers/60_asia_miao.jpg"
+    "screen": "covers/60_asia_miao.jpg",
+    "board": "maps/60_asia_miao.jpg"
   },
   {
     "id": "14_siegfried_line_nom",
