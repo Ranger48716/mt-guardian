@@ -41,7 +41,7 @@ export function AppHome() {
       <div
         className="home-hero"
         style={{
-          ['--hero' as string]: `url(${import.meta.env.BASE_URL}covers/04_himmelsdorf.jpg)`,
+          ['--hero' as string]: `url(${import.meta.env.BASE_URL}ui/hero.jpg)`,
         }}
       >
       <header className="home-top">
@@ -93,7 +93,7 @@ export function AppHome() {
           </div>
         ) : (
           <ul className="cover-grid">
-            {rows.map(({ map: m, clientMode, guided }) => (
+            {rows.map(({ map: m, clientMode, guided }, i) => (
               <li key={m.id}>
                 <button
                   type="button"
@@ -104,7 +104,11 @@ export function AppHome() {
                   <img
                     src={`${import.meta.env.BASE_URL}${mapCover(m)}`}
                     alt=""
-                    loading="lazy"
+                    width={480}
+                    height={300}
+                    decoding="async"
+                    loading={i < 4 ? 'eager' : 'lazy'}
+                    fetchPriority={i < 2 ? 'high' : 'low'}
                   />
                   <span className="cover-name">{m.name}</span>
                 </button>

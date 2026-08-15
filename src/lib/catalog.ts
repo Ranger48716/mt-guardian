@@ -24,7 +24,7 @@ function normalize(raw: unknown): Catalog {
 export async function loadCatalog(): Promise<Catalog> {
   const url = `${import.meta.env.BASE_URL}data/catalog.json`
   try {
-    const res = await fetch(url, { cache: 'no-store' })
+    const res = await fetch(url)
     if (!res.ok) return empty
     return normalize(await res.json())
   } catch {

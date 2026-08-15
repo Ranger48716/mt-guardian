@@ -41,12 +41,40 @@ function adminApi(): Plugin {
   }
 }
 
+function slimPages(): Plugin {
+  return {
+    name: 'slim-pages',
+    apply: 'build',
+    closeBundle() {
+      const dist = path.join(root, 'dist')
+      fs.rmSync(path.join(dist, 'maps', 'screens'), { recursive: true, force: true })
+      fs.rmSync(path.join(dist, 'maps', 'thumbs'), { recursive: true, force: true })
+      const catalog = JSON.parse(fs.readFileSync(dataFile, 'utf8')) as {
+        guides?: Record<string, Record<string, { publishedVersionId?: string | null }>>
+      }
+      const keep = new Set<string>()
+      for (const [mapId, modes] of Object.entries(catalog.guides || {})) {
+        if (Object.values(modes).some((g) => g.publishedVersionId)) keep.add(mapId)
+      }
+      const mapsDir = path.join(dist, 'maps')
+      if (!fs.existsSync(mapsDir)) return
+      for (const name of fs.readdirSync(mapsDir)) {
+        if (!name.endsWith('.png')) continue
+        if (!keep.has(name.slice(0, -4))) fs.unlinkSync(path.join(mapsDir, name))
+      }
+    },
+  }
+}
+
 export default defineConfig({
   base: process.env.VITE_BASE || '/',
-  plugins: [react(), adminApi()],
+  plugins: [react(), adminApi(), slimPages()],
   server: {
     watch: {
       ignored: ['**/_extracted_maps/**', '**/public/maps/**', '**/public/icons/**'],
     },
+  },
+  build: {
+    modulePreload: { polyfill: false },
   },
 })

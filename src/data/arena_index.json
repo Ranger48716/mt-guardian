@@ -1,0 +1,279 @@
+{
+  "labels": {
+    "ctf": "Стандартный бой",
+    "domination": "Встречный бой",
+    "assault": "Штурм",
+    "assault2": "Атака/Оборона",
+    "domination3": "Столкновение",
+    "comp7": "Натиск"
+  },
+  "order": [
+    "ctf",
+    "domination",
+    "assault",
+    "assault2",
+    "domination3",
+    "comp7"
+  ],
+  "maps": {
+    "01_karelia": [
+      "ctf",
+      "domination",
+      "assault",
+      "assault2",
+      "comp7"
+    ],
+    "02_malinovka": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "03_campania_big": [
+      "ctf"
+    ],
+    "04_himmelsdorf": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "05_prohorovka": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "06_ensk": [
+      "ctf",
+      "domination",
+      "comp7"
+    ],
+    "07_lakeville": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "08_ruinberg": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "1006_3d_styles_test": [
+      "ctf"
+    ],
+    "101_dday": [
+      "ctf",
+      "comp7"
+    ],
+    "105_germany": [
+      "ctf"
+    ],
+    "108_normandy_nom": [
+      "ctf"
+    ],
+    "10_hills": [
+      "ctf",
+      "domination",
+      "assault2",
+      "domination3",
+      "comp7"
+    ],
+    "112_eiffel_tower_ctf": [
+      "ctf"
+    ],
+    "114_czech": [
+      "ctf",
+      "domination",
+      "domination3",
+      "comp7"
+    ],
+    "115_sweden": [
+      "ctf",
+      "comp7"
+    ],
+    "11_murovanka": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "121_lost_paradise_v": [
+      "ctf",
+      "domination"
+    ],
+    "127_japort": [
+      "ctf",
+      "domination",
+      "assault2"
+    ],
+    "128_last_frontier_v": [
+      "ctf"
+    ],
+    "13_erlenberg": [
+      "ctf",
+      "assault",
+      "assault2",
+      "comp7"
+    ],
+    "14_siegfried_line": [
+      "ctf",
+      "domination",
+      "assault",
+      "assault2",
+      "comp7"
+    ],
+    "14_siegfried_line_nom": [
+      "ctf"
+    ],
+    "17_munchen": [
+      "ctf",
+      "comp7"
+    ],
+    "18_cliff": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "19_monastery": [
+      "ctf",
+      "domination3"
+    ],
+    "217_er_alaska": [
+      "comp7"
+    ],
+    "222_er_clime": [
+      "assault2"
+    ],
+    "23_westfeld": [
+      "ctf",
+      "domination",
+      "comp7"
+    ],
+    "250_br_battle_city2-1": [
+      "ctf"
+    ],
+    "251_br_battle_city3": [
+      "ctf"
+    ],
+    "252_br_battle_city4": [
+      "ctf"
+    ],
+    "280_cosmic_2026": [
+      "ctf"
+    ],
+    "28_desert": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "29_el_hallouf": [
+      "ctf",
+      "domination",
+      "comp7"
+    ],
+    "31_airfield": [
+      "ctf"
+    ],
+    "33_fjord": [
+      "ctf"
+    ],
+    "34_redshire": [
+      "ctf",
+      "domination",
+      "assault",
+      "assault2",
+      "comp7"
+    ],
+    "35_steppes": [
+      "ctf",
+      "domination",
+      "assault",
+      "assault2",
+      "comp7"
+    ],
+    "36_fishing_bay": [
+      "ctf",
+      "assault2",
+      "domination3"
+    ],
+    "37_caucasus": [
+      "ctf"
+    ],
+    "38_mannerheim_line": [
+      "ctf",
+      "assault2",
+      "comp7"
+    ],
+    "44_north_america": [
+      "ctf",
+      "assault2"
+    ],
+    "45_north_america": [
+      "ctf",
+      "assault2"
+    ],
+    "47_canada_a": [
+      "ctf",
+      "domination",
+      "assault2",
+      "comp7"
+    ],
+    "500_stalingrad": [
+      "ctf",
+      "domination"
+    ],
+    "502_kamchatka": [
+      "ctf",
+      "domination"
+    ],
+    "503_kaliningrad": [
+      "ctf",
+      "assault2"
+    ],
+    "505_caucasus": [
+      "ctf"
+    ],
+    "506_battle_for_moscow": [
+      "ctf",
+      "assault2"
+    ],
+    "59_asia_great_wall": [
+      "ctf"
+    ],
+    "60_asia_miao": [
+      "ctf",
+      "domination",
+      "assault2"
+    ],
+    "63_tundra": [
+      "ctf",
+      "assault2",
+      "comp7"
+    ],
+    "83_kharkiv": [
+      "ctf"
+    ],
+    "90_minsk": [
+      "ctf",
+      "assault2"
+    ],
+    "95_lost_city_ctf": [
+      "ctf",
+      "domination",
+      "assault",
+      "assault2",
+      "domination3",
+      "comp7"
+    ],
+    "99_poland": [
+      "ctf",
+      "domination",
+      "comp7"
+    ]
+  }
+}
