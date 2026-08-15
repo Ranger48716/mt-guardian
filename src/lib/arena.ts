@@ -13,7 +13,7 @@ export const MODE_ORDER = arena.order
 export const MODE_LABELS = arena.labels
 
 export function modesForMap(mapId: string): BattleModeId[] {
-  return arena.maps[mapId] || []
+  return arena.maps?.[mapId] || []
 }
 
 export function modeLabel(id: string): string {

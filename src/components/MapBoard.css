@@ -110,6 +110,11 @@
   pointer-events: none;
 }
 
+.map-mark {
+  width: calc(var(--mark) * 1.65);
+  height: calc(var(--mark) * 1.65);
+}
+
 .map-mark.is-on {
   z-index: 3;
 }
@@ -148,38 +153,9 @@
   pointer-events: auto;
 }
 
-.map-dot-plate {
-  position: absolute;
-  inset: 8%;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.78);
-}
-
-.map-dot-n {
-  position: absolute;
-  left: 50%;
-  top: -13px;
-  transform: translateX(-50%);
-  background: none;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92);
-  pointer-events: none;
-}
-
-.map-mark.is-on .map-dot {
-  outline: 1.5px solid var(--mark-color, #fff);
-  outline-offset: 2px;
-}
-
 .map-dot-icon {
   position: absolute;
-  inset: 14%;
+  inset: 4%;
   display: block;
   background-color: var(--mark-color, #fff);
   -webkit-mask-image: var(--mark-icon);

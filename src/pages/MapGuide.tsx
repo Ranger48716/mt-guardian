@@ -197,35 +197,49 @@ function GuideStage({
     const root = rootRef.current
     const svg = svgRef.current
     if (!root || !svg) return
-    if (!wide) {
-      svg.innerHTML = ''
-      return
-    }
 
     const draw = () => {
-      const box = root.getBoundingClientRect()
+      const box = svg.getBoundingClientRect()
       svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`)
       svg.setAttribute('width', String(box.width))
       svg.setAttribute('height', String(box.height))
-      const pins = [...root.querySelectorAll<HTMLElement>('[data-pin]')]
-      const notes = [...root.querySelectorAll<HTMLElement>('[data-note]')]
       const parts: string[] = []
-      pins.forEach((pin) => {
-        const id = pin.dataset.pin
-        const note = notes.find((n) => n.dataset.note === id)
-        const port = note?.querySelector<HTMLElement>('.note-port')
-        if (!note || !port) return
-        const a = pin.getBoundingClientRect()
-        const b = port.getBoundingClientRect()
-        const x1 = a.left + a.width / 2 - box.left
-        const y1 = a.top + a.height / 2 - box.top
-        const x2 = b.left + b.width / 2 - box.left
-        const y2 = b.top + b.height / 2 - box.top
-        const on = id === selectedId
-        parts.push(
-          `<path d="M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="${on ? accent : hexAlpha(accent, 0.16)}" stroke-width="${on ? 1.5 : 0.9}" stroke-linecap="round" />`,
-        )
-      })
+
+      if (wide) {
+        const pins = [...root.querySelectorAll<HTMLElement>('[data-pin]')]
+        const notes = [...root.querySelectorAll<HTMLElement>('[data-note]')]
+        pins.forEach((pin) => {
+          const id = pin.dataset.pin
+          const note = notes.find((n) => n.dataset.note === id)
+          const port = note?.querySelector<HTMLElement>('.note-port')
+          if (!note || !port) return
+          const a = pin.getBoundingClientRect()
+          const b = port.getBoundingClientRect()
+          const x1 = a.left + a.width / 2 - box.left
+          const y1 = a.top + a.height / 2 - box.top
+          const x2 = b.left + b.width / 2 - box.left
+          const y2 = b.top + b.height / 2 - box.top
+          const on = id === selectedId
+          parts.push(
+            `<path d="M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="${on ? accent : hexAlpha(accent, 0.16)}" stroke-width="${on ? 1.5 : 0.9}" stroke-linecap="round" />`,
+          )
+        })
+      } else if (selectedId) {
+        const pin = root.querySelector<HTMLElement>(`[data-pin="${selectedId}"]`)
+        const port = root.querySelector<HTMLElement>('.sheet-port')
+        if (pin && port) {
+          const a = pin.getBoundingClientRect()
+          const b = port.getBoundingClientRect()
+          const x1 = a.left + a.width / 2 - box.left
+          const y1 = a.top + a.height / 2 - box.top
+          const x2 = b.left + b.width / 2 - box.left
+          const y2 = b.top + b.height / 2 - box.top
+          parts.push(
+            `<path d="M${x1} ${y1} C ${x1} ${(y1 + y2) / 2}, ${x2} ${(y1 + y2) / 2}, ${x2} ${y2}" fill="none" stroke="${accent}" stroke-width="1.4" stroke-linecap="round" />`,
+          )
+        }
+      }
+
       svg.innerHTML = parts.join('')
     }
 
@@ -261,17 +275,18 @@ function GuideStage({
     >
       {wide && <svg className="connectors" ref={svgRef} aria-hidden />}
       <div className="guide-map">
+        {!wide && <svg className="connectors" ref={svgRef} aria-hidden />}
         <MapBoard
           image={image}
           points={points}
           groups={groups}
           respawns={respawns}
           selectedId={selectedId}
-          numbered
           onSelect={openNote}
         />
         {!wide && selected && (
           <article className={`pin-sheet ${sheetTop ? 'is-top' : 'is-bottom'}`}>
+            <span className="sheet-port" aria-hidden />
             {points.length > 1 && (
               <>
                 <div className="pin-sheet-dots">

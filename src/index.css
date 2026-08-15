@@ -580,6 +580,10 @@ label {
   overflow: visible;
 }
 
+.guide-map .connectors {
+  z-index: 4;
+}
+
 .guide-map {
   position: sticky;
   top: 96px;
@@ -606,6 +610,26 @@ label {
   -webkit-backdrop-filter: blur(18px) saturate(1.2);
   max-height: 38%;
   pointer-events: auto;
+}
+
+.sheet-port {
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 99px;
+  background: var(--g, var(--accent));
+  box-shadow: 0 0 0 3px rgba(12, 10, 10, 0.55);
+  pointer-events: none;
+}
+
+.pin-sheet.is-bottom .sheet-port {
+  top: -3px;
+}
+
+.pin-sheet.is-top .sheet-port {
+  bottom: -3px;
 }
 
 .pin-sheet-dots {

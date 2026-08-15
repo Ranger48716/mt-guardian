@@ -19,7 +19,6 @@ type Props = {
   respawns?: RespawnMarker[]
   selectedId?: string | null
   interactive?: boolean
-  numbered?: boolean
   onPlace?: (x: number, y: number) => void
   onSelect?: (id: string) => void
   onMove?: (id: string, x: number, y: number) => void
@@ -36,7 +35,6 @@ export function MapBoard({
   respawns = [],
   selectedId,
   interactive,
-  numbered,
   onPlace,
   onSelect,
   onMove,
@@ -158,7 +156,7 @@ export function MapBoard({
           </div>
         ))}
 
-        {points.map((p, i) => {
+        {points.map((p) => {
           const g = byId[p.groupId]
           if (!g) return null
           const sq = squareAt(p.x, p.y)
@@ -187,11 +185,9 @@ export function MapBoard({
                 onPointerUp={onDotPointerUp}
                 onPointerCancel={onDotPointerUp}
               >
-                <span className="map-dot-plate" aria-hidden />
                 <span className="map-dot-icon" />
-                {numbered && <span className="map-dot-n">{String(i + 1).padStart(2, '0')}</span>}
               </button>
-              <span className="map-mark-sq">{sq}</span>
+              {interactive && <span className="map-mark-sq">{sq}</span>}
             </div>
           )
         })}
