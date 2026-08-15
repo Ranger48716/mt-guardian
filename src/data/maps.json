@@ -1,0 +1,662 @@
+[
+  {
+    "id": "251_br_battle_city3",
+    "name": "Арзагир 4.04",
+    "image": "maps/251_br_battle_city3.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/251_br_battle_city3.png",
+    "screen": "covers/251_br_battle_city3.jpg"
+  },
+  {
+    "id": "31_airfield",
+    "name": "Аэродром",
+    "image": "maps/31_airfield.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/31_airfield.png",
+    "screen": "covers/31_airfield.jpg"
+  },
+  {
+    "id": "105_germany",
+    "name": "Берлин",
+    "image": "maps/105_germany.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/105_germany.png",
+    "screen": "covers/105_germany.jpg"
+  },
+  {
+    "id": "506_battle_for_moscow",
+    "name": "Битва за Москву",
+    "image": "maps/506_battle_for_moscow.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/506_battle_for_moscow.png",
+    "screen": "covers/506_battle_for_moscow.jpg"
+  },
+  {
+    "id": "23_westfeld",
+    "name": "Вестфилд",
+    "image": "maps/23_westfeld.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/23_westfeld.png",
+    "screen": "covers/23_westfeld.jpg"
+  },
+  {
+    "id": "59_asia_great_wall",
+    "name": "Граница империи",
+    "image": "maps/59_asia_great_wall.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/59_asia_great_wall.png",
+    "screen": "covers/59_asia_great_wall.jpg"
+  },
+  {
+    "id": "60_asia_miao",
+    "name": "Жемчужная река",
+    "image": "maps/60_asia_miao.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/60_asia_miao.png",
+    "screen": "covers/60_asia_miao.jpg"
+  },
+  {
+    "id": "14_siegfried_line_nom",
+    "name": "Западный вал",
+    "image": "maps/14_siegfried_line_nom.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/14_siegfried_line_nom.png",
+    "screen": "covers/14_siegfried_line_nom.jpg"
+  },
+  {
+    "id": "128_last_frontier_v",
+    "name": "Застава",
+    "image": "maps/128_last_frontier_v.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/128_last_frontier_v.png",
+    "screen": "covers/128_last_frontier_v.jpg"
+  },
+  {
+    "id": "95_lost_city_ctf",
+    "name": "Затерянный город",
+    "image": "maps/95_lost_city_ctf.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/95_lost_city_ctf.png",
+    "screen": "covers/95_lost_city_ctf.jpg"
+  },
+  {
+    "id": "250_br_battle_city2-1",
+    "name": "Зона 404",
+    "image": "maps/250_br_battle_city2-1.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/250_br_battle_city2-1.png",
+    "screen": "covers/250_br_battle_city2-1.jpg"
+  },
+  {
+    "id": "280_cosmic_2026",
+    "name": "Зона столкновения",
+    "image": "maps/280_cosmic_2026.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/280_cosmic_2026.png",
+    "screen": "covers/280_cosmic_2026.jpg"
+  },
+  {
+    "id": "505_caucasus",
+    "name": "Кавказ",
+    "image": "maps/505_caucasus.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/505_caucasus.png",
+    "screen": "covers/505_caucasus.jpg"
+  },
+  {
+    "id": "503_kaliningrad",
+    "name": "Калининград",
+    "image": "maps/503_kaliningrad.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/503_kaliningrad.png",
+    "screen": "covers/503_kaliningrad.jpg"
+  },
+  {
+    "id": "502_kamchatka",
+    "name": "Камчатка",
+    "image": "maps/502_kamchatka.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/502_kamchatka.png",
+    "screen": "covers/502_kamchatka.jpg"
+  },
+  {
+    "id": "01_karelia",
+    "name": "Карелия",
+    "image": "maps/01_karelia.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/01_karelia.png",
+    "screen": "covers/01_karelia.jpg"
+  },
+  {
+    "id": "217_er_alaska",
+    "name": "Клондайк",
+    "image": "maps/217_er_alaska.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/217_er_alaska.png",
+    "screen": "covers/217_er_alaska.jpg"
+  },
+  {
+    "id": "209_epic_suburbia",
+    "name": "Крафтверк",
+    "image": "maps/209_epic_suburbia.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/209_epic_suburbia.png",
+    "screen": "covers/209_epic_suburbia.jpg"
+  },
+  {
+    "id": "44_north_america",
+    "name": "Лайв Окс",
+    "image": "maps/44_north_america.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/44_north_america.png",
+    "screen": "covers/44_north_america.jpg"
+  },
+  {
+    "id": "07_lakeville",
+    "name": "Ласвилль",
+    "image": "maps/07_lakeville.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/07_lakeville.png",
+    "screen": "covers/07_lakeville.jpg"
+  },
+  {
+    "id": "14_siegfried_line",
+    "name": "Линия Зигфрида",
+    "image": "maps/14_siegfried_line.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/14_siegfried_line.png",
+    "screen": "covers/14_siegfried_line.jpg"
+  },
+  {
+    "id": "38_mannerheim_line",
+    "name": "Линия Маннергейма",
+    "image": "maps/38_mannerheim_line.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/38_mannerheim_line.png",
+    "screen": "covers/38_mannerheim_line.jpg"
+  },
+  {
+    "id": "02_malinovka",
+    "name": "Малиновка",
+    "image": "maps/02_malinovka.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/02_malinovka.png",
+    "screen": "covers/02_malinovka.jpg"
+  },
+  {
+    "id": "90_minsk",
+    "name": "Минск",
+    "image": "maps/90_minsk.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/90_minsk.png",
+    "screen": "covers/90_minsk.jpg"
+  },
+  {
+    "id": "19_monastery",
+    "name": "Монастырь",
+    "image": "maps/19_monastery.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/19_monastery.png",
+    "screen": "covers/19_monastery.jpg"
+  },
+  {
+    "id": "11_murovanka",
+    "name": "Мурованка",
+    "image": "maps/11_murovanka.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/11_murovanka.png",
+    "screen": "covers/11_murovanka.jpg"
+  },
+  {
+    "id": "212_epic_random_valley",
+    "name": "Небельбург",
+    "image": "maps/212_epic_random_valley.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/212_epic_random_valley.png",
+    "screen": "covers/212_epic_random_valley.jpg"
+  },
+  {
+    "id": "208_bf_epic_normandy",
+    "name": "Нормандия",
+    "image": "maps/208_bf_epic_normandy.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/208_bf_epic_normandy.png",
+    "screen": "covers/208_bf_epic_normandy.jpg"
+  },
+  {
+    "id": "101_dday",
+    "name": "Оверлорд",
+    "image": "maps/101_dday.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/101_dday.png",
+    "screen": "covers/101_dday.jpg"
+  },
+  {
+    "id": "108_normandy_nom",
+    "name": "Одер",
+    "image": "maps/108_normandy_nom.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/108_normandy_nom.png",
+    "screen": "covers/108_normandy_nom.jpg"
+  },
+  {
+    "id": "222_er_clime",
+    "name": "Орловский выступ",
+    "image": "maps/222_er_clime.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/222_er_clime.png",
+    "screen": "covers/222_er_clime.jpg"
+  },
+  {
+    "id": "112_eiffel_tower_ctf",
+    "name": "Париж",
+    "image": "maps/112_eiffel_tower_ctf.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/112_eiffel_tower_ctf.png",
+    "screen": "covers/112_eiffel_tower_ctf.jpg"
+  },
+  {
+    "id": "37_caucasus",
+    "name": "Перевал",
+    "image": "maps/37_caucasus.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/37_caucasus.png",
+    "screen": "covers/37_caucasus.jpg"
+  },
+  {
+    "id": "28_desert",
+    "name": "Песчаная река",
+    "image": "maps/28_desert.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/28_desert.png",
+    "screen": "covers/28_desert.jpg"
+  },
+  {
+    "id": "03_campania_big",
+    "name": "Провинция",
+    "image": "maps/03_campania_big.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/03_campania_big.png",
+    "screen": "covers/03_campania_big.jpg"
+  },
+  {
+    "id": "114_czech",
+    "name": "Промзона",
+    "image": "maps/114_czech.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/114_czech.png",
+    "screen": "covers/114_czech.jpg"
+  },
+  {
+    "id": "05_prohorovka",
+    "name": "Прохоровка",
+    "image": "maps/05_prohorovka.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/05_prohorovka.png",
+    "screen": "covers/05_prohorovka.jpg"
+  },
+  {
+    "id": "34_redshire",
+    "name": "Редшир",
+    "image": "maps/34_redshire.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/34_redshire.png",
+    "screen": "covers/34_redshire.jpg"
+  },
+  {
+    "id": "10_hills",
+    "name": "Рудники",
+    "image": "maps/10_hills.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/10_hills.png",
+    "screen": "covers/10_hills.jpg"
+  },
+  {
+    "id": "08_ruinberg",
+    "name": "Руинберг",
+    "image": "maps/08_ruinberg.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/08_ruinberg.png",
+    "screen": "covers/08_ruinberg.jpg"
+  },
+  {
+    "id": "36_fishing_bay",
+    "name": "Рыбацкая бухта",
+    "image": "maps/36_fishing_bay.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/36_fishing_bay.png",
+    "screen": "covers/36_fishing_bay.jpg"
+  },
+  {
+    "id": "500_stalingrad",
+    "name": "Сталинград",
+    "image": "maps/500_stalingrad.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/500_stalingrad.png",
+    "screen": "covers/500_stalingrad.jpg"
+  },
+  {
+    "id": "127_japort",
+    "name": "Старая гавань",
+    "image": "maps/127_japort.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/127_japort.png",
+    "screen": "covers/127_japort.jpg"
+  },
+  {
+    "id": "35_steppes",
+    "name": "Степи",
+    "image": "maps/35_steppes.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/35_steppes.png",
+    "screen": "covers/35_steppes.jpg"
+  },
+  {
+    "id": "99_poland",
+    "name": "Студзянки",
+    "image": "maps/99_poland.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/99_poland.png",
+    "screen": "covers/99_poland.jpg"
+  },
+  {
+    "id": "47_canada_a",
+    "name": "Тихий берег",
+    "image": "maps/47_canada_a.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/47_canada_a.png",
+    "screen": "covers/47_canada_a.jpg"
+  },
+  {
+    "id": "63_tundra",
+    "name": "Тундра",
+    "image": "maps/63_tundra.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/63_tundra.png",
+    "screen": "covers/63_tundra.jpg"
+  },
+  {
+    "id": "17_munchen",
+    "name": "Уайдпарк",
+    "image": "maps/17_munchen.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/17_munchen.png",
+    "screen": "covers/17_munchen.jpg"
+  },
+  {
+    "id": "121_lost_paradise_v",
+    "name": "Устричный залив",
+    "image": "maps/121_lost_paradise_v.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/121_lost_paradise_v.png",
+    "screen": "covers/121_lost_paradise_v.jpg"
+  },
+  {
+    "id": "18_cliff",
+    "name": "Утёс",
+    "image": "maps/18_cliff.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/18_cliff.png",
+    "screen": "covers/18_cliff.jpg"
+  },
+  {
+    "id": "210_bf_epic_desert",
+    "name": "Фата-моргана",
+    "image": "maps/210_bf_epic_desert.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/210_bf_epic_desert.png",
+    "screen": "covers/210_bf_epic_desert.jpg"
+  },
+  {
+    "id": "252_br_battle_city4",
+    "name": "Фирнульфир",
+    "image": "maps/252_br_battle_city4.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "thumb": "maps/thumbs/252_br_battle_city4.png",
+    "screen": "covers/252_br_battle_city4.jpg"
+  },
+  {
+    "id": "33_fjord",
+    "name": "Фьорды",
+    "image": "maps/33_fjord.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/33_fjord.png",
+    "screen": "covers/33_fjord.jpg"
+  },
+  {
+    "id": "45_north_america",
+    "name": "Хайвей",
+    "image": "maps/45_north_america.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/45_north_america.png",
+    "screen": "covers/45_north_america.jpg"
+  },
+  {
+    "id": "83_kharkiv",
+    "name": "Харьков",
+    "image": "maps/83_kharkiv.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/83_kharkiv.png",
+    "screen": "covers/83_kharkiv.jpg"
+  },
+  {
+    "id": "04_himmelsdorf",
+    "name": "Химмельсдорф",
+    "image": "maps/04_himmelsdorf.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/04_himmelsdorf.png",
+    "screen": "covers/04_himmelsdorf.jpg"
+  },
+  {
+    "id": "115_sweden",
+    "name": "Штиль",
+    "image": "maps/115_sweden.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/115_sweden.png",
+    "screen": "covers/115_sweden.jpg"
+  },
+  {
+    "id": "29_el_hallouf",
+    "name": "Эль-Халлуф",
+    "image": "maps/29_el_hallouf.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/29_el_hallouf.png",
+    "screen": "covers/29_el_hallouf.jpg"
+  },
+  {
+    "id": "06_ensk",
+    "name": "Энск",
+    "image": "maps/06_ensk.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/06_ensk.png",
+    "screen": "covers/06_ensk.jpg"
+  },
+  {
+    "id": "13_erlenberg",
+    "name": "Эрленберг",
+    "image": "maps/13_erlenberg.png",
+    "size": [
+      512,
+      512
+    ],
+    "thumb": "maps/thumbs/13_erlenberg.png",
+    "screen": "covers/13_erlenberg.jpg"
+  }
+]

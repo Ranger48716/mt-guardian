@@ -1,0 +1,255 @@
+.map-frame {
+  display: grid;
+  grid-template-columns: 28px 1fr 28px;
+  grid-template-rows: 28px auto 28px;
+  grid-template-areas:
+    ". top ."
+    "left board right"
+    ". bottom .";
+  width: 100%;
+  gap: 0;
+  user-select: none;
+}
+
+.map-axis {
+  display: grid;
+  color: rgba(243, 236, 230, 0.55);
+  font-family: Manrope, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.map-axis-top {
+  grid-area: top;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: end;
+  padding-bottom: 2px;
+}
+
+.map-axis-bottom {
+  grid-area: bottom;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: start;
+  padding-top: 2px;
+}
+
+.map-axis-left,
+.map-axis-right {
+  grid-template-rows: repeat(11, 1fr);
+  align-items: stretch;
+}
+
+.map-axis-left {
+  grid-area: left;
+  justify-items: end;
+  padding-right: 4px;
+}
+
+.map-axis-right {
+  grid-area: right;
+  justify-items: start;
+  padding-left: 4px;
+}
+
+.map-axis span {
+  display: grid;
+  place-items: center;
+}
+
+.map-board {
+  --mark: 48px;
+  grid-area: board;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
+.map-board > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-board.is-edit {
+  cursor: crosshair;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.map-grid line {
+  stroke: rgba(255, 209, 102, 0.42);
+  stroke-width: 0.35;
+  vector-effect: non-scaling-stroke;
+}
+
+.map-grid-edge {
+  stroke: rgba(226, 75, 45, 0.55);
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+
+/* размер задаётся --mark (px) на .map-board через ResizeObserver */
+.map-mark,
+.map-respawn {
+  position: absolute;
+  z-index: 2;
+  width: var(--mark);
+  height: var(--mark);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.map-mark.is-on {
+  z-index: 3;
+}
+
+.map-mark.is-drag {
+  z-index: 4;
+}
+
+.map-mark-sq {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 3px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: Manrope, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+
+.map-dot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  pointer-events: auto;
+}
+
+.map-dot-plate {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+}
+
+.map-dot-n {
+  position: absolute;
+  left: 50%;
+  top: -13px;
+  transform: translateX(-50%);
+  background: none;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92);
+  pointer-events: none;
+}
+
+.map-mark.is-on .map-dot {
+  outline: 1.5px solid var(--mark-color, #fff);
+  outline-offset: 2px;
+}
+
+.map-dot-icon {
+  position: absolute;
+  inset: 14%;
+  display: block;
+  background-color: var(--mark-color, #fff);
+  -webkit-mask-image: var(--mark-icon);
+  mask-image: var(--mark-icon);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  filter:
+    drop-shadow(0 0 1px #000)
+    drop-shadow(1px 0 0 #000)
+    drop-shadow(-1px 0 0 #000)
+    drop-shadow(0 1px 0 #000)
+    drop-shadow(0 -1px 0 #000)
+    drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
+}
+
+.map-board.is-dragging,
+.map-board.is-dragging .map-dot {
+  cursor: grabbing;
+}
+
+.map-mark.is-dim {
+  opacity: 0.4;
+}
+
+.map-mark.is-on .map-mark-sq {
+  color: #fff;
+}
+
+.map-respawn {
+  z-index: 1;
+  width: var(--resp, var(--mark));
+  height: var(--resp, var(--mark));
+}
+
+.map-respawn-icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px #000) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.map-respawn-num {
+  position: absolute;
+  right: -4px;
+  top: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #fff;
+  font-family: Manrope, "Segoe UI", sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  color: #fff;
+}
+
+.map-respawn.team-1 .map-respawn-num {
+  border-color: #1f9d55;
+}
+
+.map-respawn.team-2 .map-respawn-num {
+  border-color: #d64545;
+}
