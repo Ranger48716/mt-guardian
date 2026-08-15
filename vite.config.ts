@@ -49,6 +49,29 @@ function slimPages(): Plugin {
       const dist = path.join(root, 'dist')
       fs.rmSync(path.join(dist, 'maps', 'screens'), { recursive: true, force: true })
       fs.rmSync(path.join(dist, 'maps', 'thumbs'), { recursive: true, force: true })
+      const catalogPath = path.join(dist, 'data', 'catalog.json')
+      if (fs.existsSync(catalogPath)) {
+        const raw = JSON.parse(fs.readFileSync(catalogPath, 'utf8')) as {
+          guides?: Record<
+            string,
+            Record<string, { publishedVersionId?: string | null; versions?: { id: string }[] }>
+          >
+        }
+        const guides: typeof raw.guides = {}
+        for (const [mapId, modes] of Object.entries(raw.guides || {})) {
+          const slim: NonNullable<typeof guides>[string] = {}
+          for (const [modeId, g] of Object.entries(modes)) {
+            const id = g.publishedVersionId
+            if (!id) continue
+            const ver = g.versions?.find((v) => v.id === id)
+            if (!ver) continue
+            slim[modeId] = { versions: [ver], publishedVersionId: id }
+          }
+          if (Object.keys(slim).length) guides[mapId] = slim
+        }
+        fs.writeFileSync(catalogPath, JSON.stringify({ guides }))
+      }
+
       const catalog = JSON.parse(fs.readFileSync(dataFile, 'utf8')) as {
         guides?: Record<string, Record<string, { publishedVersionId?: string | null }>>
       }

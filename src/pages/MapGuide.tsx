@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { MapBoard } from '../components/MapBoard'
+import { TourHelp, TourOverlay } from '../components/TourOverlay'
 import { isAssaultMode, publicModeLabel } from '../lib/arena'
 import { respawnsFor } from '../lib/arenaSpawns'
 import { loadCatalog } from '../lib/catalog'
@@ -9,6 +10,7 @@ import { vehicleIcon } from '../lib/icons'
 import { getMapMeta, mapBoard, modeGuide, publishedModes } from '../lib/maps'
 import { publishedVersion } from '../lib/publish'
 import { markOpened } from '../lib/seen'
+import { finishMapTour, MAP_TOUR, mapTourStep, saveMapTour, startMapTour } from '../lib/tour'
 import { groupColor, type Catalog, type Point, type PointGroup, type Resp } from '../types'
 
 function hexAlpha(hex: string, a: number) {
@@ -41,6 +43,10 @@ export function MapGuide() {
   const [resp, setResp] = useState<Resp>(1)
   const [activeGroup, setActiveGroup] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [tour, setTour] = useState(0)
+  const [closable, setClosable] = useState(false)
+  const pageRef = useRef<HTMLDivElement>(null)
+  const [spot, setSpot] = useState<DOMRect | null>(null)
 
   useEffect(() => {
     loadCatalog().then(setCatalog)
@@ -76,21 +82,69 @@ export function MapGuide() {
   const groups = version?.groups || []
   const currentGroup = groups.find((g) => g.id === activeGroup) || groups[0] || null
   const otherModes = publishedModes(catalog, mapId).filter((id) => id !== modeId)
+  const mapSteps = useMemo(
+    () => MAP_TOUR.filter((s) => s.target !== 'modes' || otherModes.length > 0),
+    [otherModes.length],
+  )
+  const step = mapSteps[tour - 1]
+  const showTour = Boolean(version && step)
+  const place =
+    step?.target === 'resp' ? 'top' : step?.target === 'map' ? 'under' : step?.target === 'note' ? 'above' : undefined
+
+  const hasGuide = Boolean(version)
 
   useEffect(() => {
-    setActiveGroup(version?.groups[0]?.id || null)
+    if (!hasGuide) return
+    setTour((n) => (n === 0 ? mapTourStep() : n))
+  }, [hasGuide])
+
+  useEffect(() => {
+    if (tour > mapSteps.length) setTour(finishMapTour())
+  }, [tour, mapSteps.length])
+
+  useEffect(() => {
+    if (!step) {
+      setSpot(null)
+      return
+    }
+    const root = pageRef.current
+    const el = root?.querySelector(`[data-tour="${step.target}"]`)
+    el?.scrollIntoView({
+      block: step.target === 'map' ? 'start' : 'nearest',
+      inline: 'nearest',
+    })
+    const sync = () => {
+      const target = root?.querySelector(`[data-tour="${step.target}"]`)
+      setSpot(target?.getBoundingClientRect() ?? null)
+    }
+    sync()
+    const ro = root ? new ResizeObserver(sync) : null
+    if (root) ro?.observe(root)
+    window.addEventListener('resize', sync)
+    window.addEventListener('scroll', sync, true)
+    return () => {
+      ro?.disconnect()
+      window.removeEventListener('resize', sync)
+      window.removeEventListener('scroll', sync, true)
+    }
+  }, [step, resp, activeGroup, selectedId, version])
+
+  const firstGroup = version?.groups[0]?.id || null
+  useEffect(() => {
+    setActiveGroup(firstGroup)
     setSelectedId(null)
     setResp(1)
-  }, [mapId, modeId, version])
+  }, [mapId, modeId, firstGroup])
 
   const points = useMemo(() => {
     if (!version || !currentGroup) return []
     return version.points.filter((p) => p.groupId === currentGroup.id && p.resp === resp)
   }, [version, currentGroup, resp])
 
+  const firstPoint = points[0]?.id || null
   useEffect(() => {
-    setSelectedId(points[0]?.id || null)
-  }, [currentGroup?.id, resp, points])
+    setSelectedId(firstPoint)
+  }, [currentGroup?.id, resp, firstPoint])
 
   if (!meta) {
     return (
@@ -103,7 +157,10 @@ export function MapGuide() {
 
   const assault = isAssaultMode(modeId)
   const chips = version && (
-    <nav className="g-chips">
+    <nav
+      className={`g-chips ${step?.target === 'classes' ? 'is-tour-spot' : ''}`}
+      data-tour="classes"
+    >
       {groups.map((g) => (
         <button
           key={g.id}
@@ -121,7 +178,7 @@ export function MapGuide() {
   )
 
   return (
-    <div className="g-page">
+    <div className={`g-page ${showTour ? 'is-tour' : ''}`} ref={pageRef}>
       <header className="g-top">
         <Link className="g-back" to="/" aria-label="К картам">
           <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden>
@@ -132,13 +189,24 @@ export function MapGuide() {
           <div className="g-title">{meta.name}</div>
           <div className="g-mode">{publicModeLabel(modeId)}</div>
         </div>
-        <div className="seg sm">
-          <button type="button" className={resp === 1 ? 'is-on' : ''} onClick={() => setResp(1)}>
-            {assault ? 'Атака' : 'Респ 1'}
-          </button>
-          <button type="button" className={resp === 2 ? 'is-on' : ''} onClick={() => setResp(2)}>
-            {assault ? 'Оборона' : 'Респ 2'}
-          </button>
+        <div className="g-top-actions">
+          <div className={`seg sm ${step?.target === 'resp' ? 'is-tour-spot' : ''}`} data-tour="resp">
+            <button type="button" className={resp === 1 ? 'is-on' : ''} onClick={() => setResp(1)}>
+              {assault ? 'Атака' : 'Респ 1'}
+            </button>
+            <button type="button" className={resp === 2 ? 'is-on' : ''} onClick={() => setResp(2)}>
+              {assault ? 'Оборона' : 'Респ 2'}
+            </button>
+          </div>
+          {hasGuide && (
+            <TourHelp
+              active={step?.target === 'help'}
+              onClick={() => {
+                setClosable(true)
+                setTour(startMapTour())
+              }}
+            />
+          )}
         </div>
       </header>
 
@@ -147,7 +215,10 @@ export function MapGuide() {
       ) : (
         <>
           {otherModes.length > 0 && (
-            <div className="mode-pills g-modes">
+            <div
+              className={`mode-pills g-modes ${step?.target === 'modes' ? 'is-tour-spot' : ''}`}
+              data-tour="modes"
+            >
               <button type="button" className="is-on">
                 {publicModeLabel(modeId)}
               </button>
@@ -170,10 +241,25 @@ export function MapGuide() {
               resp={resp}
               selectedId={selectedId}
               accent={groupColor(currentGroup)}
+              tourSpot={step?.target}
               onSelect={setSelectedId}
             />
           )}
         </>
+      )}
+
+      {showTour && (
+        <TourOverlay
+          steps={mapSteps}
+          index={tour}
+          spot={spot}
+          place={place}
+          closable={closable}
+          onGo={(n) => {
+            if (n === 0) setClosable(false)
+            setTour(n === 0 ? finishMapTour() : saveMapTour(n))
+          }}
+        />
       )}
     </div>
   )
@@ -187,6 +273,7 @@ function GuideStage({
   resp,
   selectedId,
   accent,
+  tourSpot,
   onSelect,
 }: {
   image: string
@@ -196,6 +283,7 @@ function GuideStage({
   resp: Resp
   selectedId: string | null
   accent: string
+  tourSpot?: string
   onSelect: (id: string) => void
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -284,7 +372,7 @@ function GuideStage({
       style={{ ['--g' as string]: accent }}
     >
       <svg className="connectors" ref={svgRef} aria-hidden />
-      <div className="guide-map">
+      <div className={`guide-map ${tourSpot === 'map' ? 'is-tour-spot' : ''}`} data-tour="map">
         <MapBoard
           key={image}
           image={image}
@@ -298,7 +386,10 @@ function GuideStage({
       </div>
       {!wide && !selected && <p className="muted g-pad">Нет точек для этого респа</p>}
       {!wide && selected && (
-        <article className="pin-sheet is-dock">
+        <article
+          className={`pin-sheet is-dock ${tourSpot === 'note' ? 'is-tour-spot' : ''}`}
+          data-tour="note"
+        >
           <span className="sheet-port" aria-hidden />
           {points.length > 1 && (
             <>
@@ -357,7 +448,7 @@ function GuideStage({
         </article>
       )}
       {wide && (
-        <ol className="notes">
+        <ol className={`notes ${tourSpot === 'note' ? 'is-tour-spot' : ''}`} data-tour="note">
           {points.length === 0 && <li className="muted">Нет точек для этого респа</li>}
           {points.map((p, i) => (
             <li key={p.id}>

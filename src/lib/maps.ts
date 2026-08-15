@@ -43,26 +43,10 @@ export function mapHasGuides(map: ResolvedMap): boolean {
   return Object.values(map.modes).some((g) => g.versions.length > 0)
 }
 
-export function mapGuideCount(map: ResolvedMap): number {
-  return Object.values(map.modes).reduce((n, g) => n + g.versions.length, 0)
-}
-
-export function resolvePublished(catalog: Catalog): { map: ResolvedMap; modeId: string }[] {
-  const out: { map: ResolvedMap; modeId: string }[] = []
-  for (const meta of MAPS) {
-    const map = resolveMap(meta, catalog)
-    for (const [modeId, g] of Object.entries(map.modes)) {
-      if (g.publishedVersionId) out.push({ map, modeId })
-    }
-  }
-  return out
-}
-
 export function mapThumb(m: { image: string; thumb?: string }): string {
   return m.thumb || m.image
 }
 
-/** Загрузочный экран для списка карт; mmap — только fallback. */
 export function mapCover(m: { image: string; thumb?: string; screen?: string }): string {
   return m.screen || m.thumb || m.image
 }
