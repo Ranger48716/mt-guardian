@@ -620,6 +620,10 @@ label {
   margin-bottom: 8px;
 }
 
+h3.pin-sheet-sq {
+  margin-bottom: 6px;
+}
+
 .pin-sheet-nav {
   width: 32px;
   height: 32px;
@@ -670,22 +674,9 @@ label {
   }
 }
 
-.pin-sheet-n {
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
-}
-
-.pin-sheet-n span {
-  margin: 0 3px;
-  font-weight: 500;
-  color: var(--muted);
-}
-
 .pin-sheet-sq {
-  margin: 0 0 4px;
+  margin: 0;
+  text-align: center;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.03em;

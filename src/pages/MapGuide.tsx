@@ -190,7 +190,6 @@ function GuideStage({
   const svgRef = useRef<SVGSVGElement>(null)
   const wide = useWide()
   const selected = points.find((p) => p.id === selectedId) || null
-  const selectedN = selected ? points.findIndex((p) => p.id === selected.id) + 1 : 0
   const sheetTop = (selected?.y ?? 0) >= 50
 
   useEffect(() => {
@@ -303,11 +302,7 @@ function GuideStage({
                       />
                     </svg>
                   </button>
-                  <div className="pin-sheet-n">
-                    {selectedN}
-                    <span>/</span>
-                    {points.length}
-                  </div>
+                  <div className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</div>
                   <button
                     type="button"
                     className="pin-sheet-nav"
@@ -328,7 +323,9 @@ function GuideStage({
                 </div>
               </>
             )}
-            <h3 className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</h3>
+            {points.length < 2 && (
+              <h3 className="pin-sheet-sq">{squareAt(selected.x, selected.y)}</h3>
+            )}
             <p>{selected.description}</p>
           </article>
         )}
